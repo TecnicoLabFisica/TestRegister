@@ -1,4 +1,14 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(micromamba run -n testregister node --test:*)",
+      "Bash(micromamba run -n testregister npm run:*)",
+      "Bash(python3 -m http.server:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  },
   "enabledPlugins": {
     "frontend-design@anthropic-plugin-directory": true,
     "superpowers@anthropic-plugin-directory": true,
@@ -10,15 +20,5 @@
     "playground@anthropic-plugin-directory": true,
     "remember@claude-plugins-official": true,
     "ponytail@ponytail": true
-  },
-  "permissions": {
-    "allow": [
-      "Bash(micromamba run -n testregister node --test:*)",
-      "Bash(micromamba run -n testregister npm run:*)",
-      "Bash(python3 -m http.server:*)",
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)"
-    ]
   }
 }
