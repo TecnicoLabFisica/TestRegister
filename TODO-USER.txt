@@ -1,0 +1,70 @@
+TestRegister: your to-do list
+=============================
+Tick a box by changing [ ] to [x]. Details for steps 2-3 are in docs/SETUP.md.
+
+1. GITHUB (any machine)
+[x] Create the public repo TecnicoLabFisica/TestRegister
+[ ] Repo Settings → Pages → "Build and deployment" → Source: GitHub Actions
+[ ] Actions tab: the "Test and deploy to Pages" run is green (re-run it if it ran before Pages was enabled)
+[ ] Open https://tecnicolabfisica.github.io/TestRegister/ and check that the landing page loads
+
+2. WORK PC: SET UP THE PROJECT
+[ ] Check that ~/.ssh/config has a "github-work" host using the TecnicoLabFisica key (same as the laptop)
+[ ] git clone git@github-work:TecnicoLabFisica/TestRegister.git
+[ ] cd TestRegister && git config user.name TecnicoLabFisica && git config user.email tutorias.fisica@epn.edu.ec
+[ ] micromamba create -f environment.yml
+[ ] micromamba run -n testregister node --test   (all tests pass)
+[ ] In Claude Code, install the plugins listed in .claude/settings.json with /plugin
+[ ] Create the folder data/ (git-ignored) and put the real CSVs there:
+      data/assigned_classrooms.csv
+      data/assigned_supervisors.csv  (columns: name,email,classroom,expected_students;
+                                      classroom must match assigned_classroom exactly)
+
+3. WORK PC: GOOGLE BACKEND (one time, with the work Google account)
+[ ] Create a new Google Sheet (e.g. "TestRegister – datos"). Don't share it: it holds personal data
+[ ] Sheet → Extensions → Apps Script
+[ ] Create the file Code.gs and paste in apps-script/Code.gs
+[ ] Create the file Core.gs and paste in apps-script/Core.gs
+[ ] Project Settings → tick "Show appsscript.json manifest" → paste in apps-script/appsscript.json
+[ ] In the editor, select the function initSecrets → Run → authorize
+[ ] Copy the ADMIN_KEY from the execution log and keep it somewhere safe (a password manager)
+[ ] Deploy → New deployment → Web app; Execute as: Me; Who has access: Anyone → Deploy
+[ ] Copy the web app URL (it ends in /exec)
+[ ] Paste it into site/config.js:  window.TR_CONFIG = { apiUrl: 'https://script.google.com/macros/s/.../exec' };
+[ ] git add site/config.js && git commit -m "Configure backend URL" && git push
+[ ] Wait for the Actions run to go green
+
+4. FIRST REAL TEST (before any exam)
+[ ] Make a test supervisors CSV with your own name/email and a classroom from the students CSV
+[ ] Open https://tecnicolabfisica.github.io/TestRegister/admin.html, enter the ADMIN_KEY, upload both CSVs
+[ ] Check the validation report (no red errors; review the amber warnings)
+[ ] Run setup → your supervisor link appears
+[ ] Click "Email links" → you receive the email in Spanish
+[ ] Open the link on your PHONE → allow the camera
+[ ] Scan your own student card QR → registered (or a wrong-room or unknown warning, as expected)
+[ ] Type an ID by hand → registered
+[ ] Type an ID from another classroom → Spanish warning → "Registrar aquí" → registered
+[ ] "Mostrar QR" → scan it with a second phone → enter an ID → "¡Registro exitoso!"
+[ ] Turn on airplane mode, register an ID (a "pendiente" badge appears), turn airplane mode off, and the badge clears
+[ ] Admin page: the dashboard shows the counts → "Download CSV" → open it in Excel and check the accents and statuses
+[ ] Print the link sheet (Ctrl+P) and check that the layout and QR codes look right
+[ ] Check that the Sheet tabs (students / supervisors / registrations) show 9-digit IDs as text, not numbers
+[ ] Tell Claude about anything that failed or looked odd
+
+5. BEFORE EACH EXAM
+[ ] Put the new CSVs in data/ and validate and upload them in the admin page
+    (WARNING: setup replaces everything and clears previous registrations. Download the old CSV first!)
+[ ] Click "Email links" and/or print the link sheet as a backup
+[ ] Ask supervisors to open their link once beforehand, on Wi-Fi, so the roster gets cached on their phone
+
+6. AFTER EACH EXAM
+[ ] Admin page → Download CSV → save it in data/ (filter status = absent / wrong_room / unknown)
+
+7. WHEN BACKEND CODE CHANGES (Claude will tell you)
+[ ] Paste the new apps-script/*.gs files into the editor
+[ ] Deploy → Manage deployments → pencil → Version: New version → Deploy (the URL stays the same;
+    do NOT use "New deployment", which creates a different URL)
+
+8. EACH WORK SESSION, ON EITHER MACHINE
+[ ] Run git pull before starting and git push when done
+[ ] Ask Claude to update docs/STATUS.md at the end of the session
