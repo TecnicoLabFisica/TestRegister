@@ -42,6 +42,20 @@ var ES = {
     registerAnyway: 'Registrar',
     cancel: 'Cancelar',
     chip: { ok: 'OK', wrong_room: 'Otra aula', unknown: 'No listado', pending: 'Pendiente' },
+    tabs: { scan: 'Escanear', list: 'Lista', qr: 'QR' },
+    sync: { online: 'En línea', offline: 'Sin conexión' },
+    pendingN: function (n) { return n + (n === 1 ? ' pendiente' : ' pendientes'); },
+    camHint: 'Toca para abrir la cámara',
+    search: 'Buscar por nombre o ID',
+    filter: { all: 'Todos', missing: 'Faltan', done: 'Registrados' },
+    missing: 'Falta',
+    others: 'Otros registrados aquí',
+    emptyList: 'Ningún estudiante coincide con la búsqueda.',
+    registerWho: function (name) { return '¿Registrar a ' + name + '?'; },
+    registerWhoMsg: function (id) { return 'ID ' + id + '. Se registrará como ingreso manual.'; },
+    wrongRoomTitle: 'Aula distinta',
+    unknownTitle: 'ID no listado',
+    errorTitle: 'No se pudo abrir',
     qrTitle: 'Autoregistro',
     qrHelp: 'Escanea este código con tu celular para registrarte',
     qrOffline: 'Sin conexión: el QR de autoregistro necesita internet',
@@ -61,7 +75,11 @@ var ES = {
     room: 'Aula',
     wrongRoom: function (room) { return 'Quedaste registrado en esta aula, pero tu aula asignada es ' + room + '. Informa al supervisor.'; },
     dupe: 'Ya estabas registrado.',
-    again: 'Registrar otro ID'
+    again: 'Registrar otro ID',
+    wrongRoomTitle: 'Registrado en otra aula',
+    expiredTitle: 'El QR expiró',
+    expiredHelp: 'Pide al supervisor que te muestre el QR de su pantalla y escanéalo de nuevo.',
+    errorTitle: 'No se pudo registrar'
   },
   print: {
     title: 'Enlaces de supervisores',
@@ -77,6 +95,12 @@ var ES = {
     title: 'Registro de asistencia a exámenes',
     lead: 'Los supervisores registran a los estudiantes escaneando el QR del carnet o escribiendo su ID de 9 dígitos. Los estudiantes también pueden registrarse con el QR que muestra el supervisor.',
     supervisor: 'Si eres supervisor, abre el enlace que recibiste por correo.',
-    admin: 'Administración'
+    admin: 'Administración',
+    hint: 'Abre el enlace que recibiste por correo para empezar.',
+    tiles: [
+      { icon: 'camera', t: 'Escanear', d: 'Lee el QR del carnet o escribe el ID de 9 dígitos.' },
+      { icon: 'qr', t: 'Autoregistro', d: 'Los estudiantes se registran con el QR de tu pantalla.' },
+      { icon: 'chart', t: 'Reporte', d: 'Asistencia por aula en tiempo real y descarga en CSV.' }
+    ]
   }
 };

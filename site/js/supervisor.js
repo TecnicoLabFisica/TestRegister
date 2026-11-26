@@ -4,6 +4,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var session = null, serverRegs = [], outbox = null, scanner = null, online = true;
 
+  var tab = 'scan', filter = 'all';
   function fail(title, text) {
     $('app').classList.add('hidden'); $('err').classList.remove('hidden');
     $('err').querySelector('h1').textContent = title; $('err').querySelector('p').textContent = text;
@@ -36,32 +37,80 @@
     return Object.keys(session.directory).filter(function (id) { return session.directory[id][1] === room; }).length;
   }
 
+  function chipEl(st) { var c = document.createElement('span'); c.className = 'chip ' + st; c.textContent = S.chip[st] || S.missing; return c; }
+
   function render() {
-    var a = allRegs(), n = outbox.count();
-    $('cnt').textContent = a.list.length;
-    $('cntOf').textContent = S.of + ' ' + roomSize() + ' ' + S.registered;
-    $('pend').classList.toggle('hidden', !n);
-    $('pend').textContent = n + ' ' + S.pending;
-    $('offline').classList.toggle('hidden', online);
+    var a = allRegs(), n = outbox.count(), size = roomSize();
+    UI.countUp($('cnt'), a.list.length);
+    UI.ring($('ring'), size ? a.list.length / size : 0);
+    $('cntOf').textContent = S.of + ' ' + size; $('ring').setAttribute('aria-label', a.list.length + ' ' + S.of + ' ' + size + ' ' + S.registered);
+    var sync = $('sync');
+    sync.className = 'pill ' + (!online ? '' : n ? 'warn' : 'ok');
+    sync.textContent = !online ? S.sync.offline + (n ? ' · ' + n : '') : n ? S.pendingN(n) : S.sync.online;
     var recent = a.list.slice().sort(function (x, y) { return x.registered_at < y.registered_at ? 1 : -1; }).slice(0, 10);
     $('recent').innerHTML = '';
-    if (!recent.length) $('recent').innerHTML = '<li class="tm"></li>', $('recent').firstChild.textContent = S.noRecent;
+    if (!recent.length) $('recent').innerHTML = '<li class="empty-row"></li>', $('recent').firstChild.textContent = S.noRecent;
     recent.forEach(function (r) {
       var li = document.createElement('li'), st = r.pending ? 'pending' : r.status;
-      li.innerHTML = '<span class="nm"></span><span class="tm"></span><span class="chip"></span>';
-      li.children[0].textContent = r.name;
-      li.children[1].textContent = hhmm(r.registered_at);
-      li.children[2].textContent = S.chip[st]; li.children[2].className = 'chip ' + st;
+      li.className = 'row';
+      li.innerHTML = '<span class="rn"><span class="nm"></span></span><span class="rs"><span class="tm"></span></span>';
+      li.querySelector('.nm').textContent = r.name;
+      li.querySelector('.tm').textContent = hhmm(r.registered_at);
+      li.querySelector('.rs').appendChild(chipEl(st));
       $('recent').appendChild(li);
     });
+    renderList(a);
+  }
+
+  // ---- roster tab ----
+  function rowEl(name, id, missing) {
+    var el = document.createElement(missing ? 'button' : 'div'); el.className = 'row';
+    el.innerHTML = '<span class="rn"><span class="nm"></span><span class="id"></span></span><span class="rs"></span>';
+    el.querySelector('.nm').textContent = name; el.querySelector('.id').textContent = id;
+    return el;
+  }
+  function renderList(a) {
+    a = a || allRegs();
+    var room = session.supervisor.classroom, q = UI.norm($('q').value.trim()), ro = $('roster'), ot = $('others');
+    function match(name, id) { return !q || UI.norm(name).indexOf(q) >= 0 || id.indexOf(q) >= 0; }
+    function byName(x, y) { return x[0].localeCompare(y[0], 'es'); }
+    ro.innerHTML = ''; ot.innerHTML = '';
+    Object.keys(session.directory).filter(function (id) { return session.directory[id][1] === room; })
+      .map(function (id) { return [session.directory[id][0], id]; }).sort(byName).forEach(function (p) {
+        var r = a.byId[p[1]], missing = !r;
+        if (!match(p[0], p[1]) || (filter === 'missing' && !missing) || (filter === 'done' && missing)) return;
+        var el = rowEl(p[0], p[1], missing), rs = el.querySelector('.rs');
+        if (missing) {
+          rs.appendChild(chipEl('missing'));
+          el.onclick = function () { askRegister(p[0], p[1]); };
+        } else if (r.pending) rs.appendChild(chipEl('pending'));
+        else { var tm = document.createElement('span'); tm.className = 'tm'; tm.textContent = hhmm(r.registered_at); rs.appendChild(tm); rs.appendChild(chipEl(r.status)); }
+        var li = document.createElement('li'); li.appendChild(el); ro.appendChild(li);
+      });
+    if (!ro.children.length) ro.innerHTML = '<li class="empty-row"></li>', ro.firstChild.textContent = S.emptyList;
+    var extra = filter === 'missing' ? [] : a.list.filter(function (r) { return !session.directory[r.id] || session.directory[r.id][1] !== room; })
+      .filter(function (r) { return match(r.name, r.id); });
+    $('othersH').textContent = S.others;
+    $('othersH').classList.toggle('hidden', !extra.length); ot.classList.toggle('hidden', !extra.length);
+    extra.forEach(function (r) {
+      var el = rowEl(r.name, r.id, false), li = document.createElement('li');
+      var tm = document.createElement('span'); tm.className = 'tm'; tm.textContent = hhmm(r.registered_at);
+      el.querySelector('.rs').appendChild(tm); el.querySelector('.rs').appendChild(chipEl(r.pending ? 'pending' : r.status));
+      li.appendChild(el); ot.appendChild(li);
+    });
+  }
+  function askRegister(name, id) {
+    ask({ icon: 'check', kind: 'info', title: S.registerWho(name), msg: S.registerWhoMsg(id), yes: S.register, yesKind: 'primary' })
+      .then(function (yes) { if (yes) handleId(id, 'manual'); });
   }
 
   // ---- feedback ----
+  function flash(kind) {
+    var f = $('flash'); f.className = 'flash ' + kind; void f.offsetWidth; f.classList.add('go');
+  }
   function show(kind, title, sub) {
-    var r = $('result'); r.className = 'banner pop ' + kind;
-    r.innerHTML = '<span></span><small></small>';
-    r.children[0].textContent = title; r.children[1].textContent = sub || '';
-    r.children[1].classList.toggle('hidden', !sub);
+    UI.toast(kind, title, sub);
+    if (kind === 'ok' || kind === 'warn') flash(kind);
   }
   function beep() {
     try {
@@ -70,17 +119,10 @@
       o.start(); o.stop(c.currentTime + .12); setTimeout(function () { c.close(); }, 300);
     } catch (e) {}
   }
-  function confirmModal(msg, yes) {
+  function ask(o) { // bottom sheet; the scanner stays paused while it is open
     if (scanner) scanner.paused = true;
-    return new Promise(function (resolve) {
-      var d = $('dlg');
-      $('dlgMsg').textContent = msg; $('dlgYes').textContent = yes; $('dlgNo').textContent = S.cancel;
-      function done(v) { d.close(); $('dlgYes').onclick = $('dlgNo').onclick = null; if (scanner) scanner.paused = false; resolve(v); }
-      $('dlgYes').onclick = function () { done(true); };
-      $('dlgNo').onclick = function () { done(false); };
-      d.oncancel = function (e) { e.preventDefault(); done(false); };
-      d.showModal();
-    });
+    o.no = S.cancel;
+    return UI.sheet(o).then(function (v) { if (scanner) scanner.paused = false; return v; });
   }
 
   function queue(id, method, d, kind) {
@@ -102,8 +144,10 @@
       return Promise.resolve();
     }
     if (d.status === 'ok') { queue(id, method, d, 'ok'); return Promise.resolve(); }
-    var msg = d.status === 'wrong_room' ? S.wrongRoomMsg(d.assigned_classroom) : S.unknownMsg(id);
-    return confirmModal(msg, d.status === 'wrong_room' ? S.registerHere : S.registerAnyway).then(function (yes) {
+    var wr = d.status === 'wrong_room';
+    return ask({ icon: 'warn', kind: wr ? 'warn' : 'bad', title: wr ? S.wrongRoomTitle : S.unknownTitle,
+      msg: wr ? S.wrongRoomMsg(d.assigned_classroom) : S.unknownMsg(id),
+      yes: wr ? S.registerHere : S.registerAnyway, yesKind: wr ? 'warn' : 'primary' }).then(function (yes) {
       if (yes) queue(id, method, d, d.status);
     });
   }
@@ -135,50 +179,62 @@
     $('qrBox').innerHTML = q.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
     $('qrBox').setAttribute('data-checkin-url', url);
   }
+  function qrOff(msg) {
+    $('qrBox').parentNode.classList.toggle('hidden', !!msg); $('qrOff').classList.toggle('hidden', !msg);
+    if (msg) $('qrMsg').textContent = msg;
+  }
   function loadCode() {
     clearTimeout(qrTimer);
     api('selfCode', { token: token }).then(function (res) {
-      if ($('qrView').classList.contains('hidden')) return; // closed while in flight
+      if (tab !== 'qr') return; // left the tab while in flight
       if (!res.ok) throw new Error(errText(res));
       var url = withMock(siteBase() + 'checkin.html?c=' + encodeURIComponent(res.classroom) + '&k=' + res.code);
-      drawQr(url); $('qrMsg').classList.add('hidden'); $('qrBox').classList.remove('hidden');
+      drawQr(url); qrOff('');
       var left = res.expires_in + 1; // just past the minute bucket, so the next fetch gets the new code
       clearInterval(qrTick);
-      qrTick = setInterval(function () { left--; $('qrCount').textContent = S.qrRenew(Math.max(left, 0)); }, 1000);
-      $('qrCount').textContent = S.qrRenew(left);
+      function paint() { $('qrCount').textContent = S.qrRenew(Math.max(left, 0)); UI.ring($('qrRing'), Math.max(left, 0) / 60); }
+      qrTick = setInterval(function () { left--; paint(); }, 1000);
+      paint();
       clearTimeout(qrTimer); qrTimer = setTimeout(loadCode, left * 1000);
     }).catch(function (e) {
-      if ($('qrView').classList.contains('hidden')) return;
-      $('qrBox').classList.add('hidden'); $('qrMsg').classList.remove('hidden');
-      $('qrMsg').textContent = e && e.message && e.message !== 'offline' ? e.message : S.qrOffline;
-      $('qrCount').textContent = '';
+      if (tab !== 'qr') return;
+      qrOff(e && e.message && e.message !== 'offline' ? e.message : S.qrOffline);
+      $('qrCount').textContent = ''; UI.ring($('qrRing'), 0);
       clearInterval(qrTick);
       clearTimeout(qrTimer); qrTimer = setTimeout(loadCode, 5000);
     });
   }
-  function closeQr() { clearTimeout(qrTimer); clearInterval(qrTick); $('qrView').classList.add('hidden'); }
+  function stopQr() { clearTimeout(qrTimer); clearInterval(qrTick); }
 
-  // ---- UI wiring ----
+  // ---- tabs + UI wiring ----
+  var TKEY = 'tr_sup_tab';
+  function stopCam() { scanner.stop(); $('cam').classList.remove('live'); $('bScan').textContent = S.scan; }
+  function showTab(t) {
+    tab = t;
+    ['scan', 'list', 'qr'].forEach(function (n) { $('tab-' + n).classList.toggle('hidden', n !== t); });
+    try { localStorage.setItem(TKEY, t); } catch (e) {}
+    if (t !== 'scan') stopCam();
+    if (t === 'qr') loadCode(); else stopQr();
+    if (t === 'list') renderList();
+  }
   function wire() {
-    $('bScan').textContent = S.scan; $('bManual').textContent = S.manual; $('bQr').textContent = S.showQr;
+    $('bScan').textContent = S.scan; $('camHint').textContent = S.camHint;
     $('idLabel').textContent = S.idLabel; $('bGo').textContent = S.register;
-    $('recentH').textContent = S.recent; $('offline').textContent = S.offline;
-    $('qrHelp').textContent = S.qrHelp; $('qrClose').textContent = S.close;
+    $('recentH').textContent = S.recent; $('qrHelp').textContent = S.qrHelp;
+    $('tScan').textContent = S.tabs.scan; $('tList').textContent = S.tabs.list; $('tQr').textContent = S.tabs.qr;
+    $('q').placeholder = S.search;
+    var fb = $('flt').querySelectorAll('button'), fk = ['all', 'missing', 'done'];
+    fb.forEach(function (b, i) { b.textContent = S.filter[fk[i]]; });
+    UI.seg($('flt'), function (v) { filter = v; renderList(); });
+    $('q').oninput = function () { renderList(); };
     scanner = createScanner('reader', function (id) { handleId(id, 'scan'); });
 
     $('bScan').onclick = function () {
-      if (scanner.isRunning()) {
-        scanner.stop(); $('scanPanel').classList.add('hidden'); $('bScan').textContent = S.scan; return;
-      }
-      $('camErr').classList.add('hidden'); $('scanPanel').classList.remove('hidden');
-      $('manualPanel').classList.add('hidden');
-      scanner.start().then(function () { $('bScan').textContent = S.scanStop; }, function () {
+      if (scanner.isRunning()) return stopCam();
+      $('camErr').classList.add('hidden');
+      scanner.start().then(function () { $('cam').classList.add('live'); $('bScan').textContent = S.scanStop; }, function () {
         $('camErr').textContent = S.cameraError; $('camErr').classList.remove('hidden');
       });
-    };
-    $('bManual').onclick = function () {
-      $('manualPanel').classList.toggle('hidden');
-      if (!$('manualPanel').classList.contains('hidden')) $('idIn').focus();
     };
     $('idIn').oninput = function () { this.value = this.value.replace(/\D/g, '').slice(0, 9); };
     $('manualPanel').onsubmit = function (e) {
@@ -188,14 +244,17 @@
       if (!/^\d{9}$/.test(v)) return;
       handleId(v, 'manual').then(function () { $('idIn').value = ''; $('idIn').focus(); });
     };
-    $('bQr').onclick = function () { $('qrView').classList.remove('hidden'); loadCode(); };
-    $('qrClose').onclick = closeQr;
+    var saved = 'scan'; try { saved = localStorage.getItem(TKEY) || 'scan'; } catch (e) {}
+    if (['scan', 'list', 'qr'].indexOf(saved) < 0) saved = 'scan';
+    var tabs = UI.seg($('tabs'), showTab, saved);
+    showTab(saved);
     window.addEventListener('online', function () { outbox.flush(); });
   }
 
   // ---- boot ----
   function start() {
     $('app').classList.remove('hidden');
+    UI.ring($('ring'), 0);
     $('room').textContent = session.supervisor.classroom;
     $('who').textContent = S.supervisor + ': ' + session.supervisor.name +
       (session.coSupervisors.length ? ' · ' + S.with + ' ' + session.coSupervisors.join(', ') : '');

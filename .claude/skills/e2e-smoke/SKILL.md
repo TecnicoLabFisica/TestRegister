@@ -5,6 +5,8 @@ description: End-to-end smoke test of TestRegister in a phone-sized browser agai
 
 # E2E smoke (mock backend)
 
+Fast path: the scripted run `tests/e2e/smoke.cjs` covers the whole flow below, light and dark. Start the server (step 2), then run `node tests/e2e/smoke.cjs <screenshot-dir>`. It needs `playwright-core` and a Chromium: either `npm i --no-save playwright-core && npx playwright-core install chromium`, or set `PLAYWRIGHT_CORE`/`CHROMIUM_PATH` to existing copies. It must end with `errors: []`. Update the script whenever the DOM changes. Use the Playwright MCP steps below for exploratory checks.
+
 1. Generate fixtures: `micromamba run -n testregister npm run fixtures` (writes synthetic CSVs to `tests/fixtures/`).
 2. Serve: run `python3 -m http.server -d site 8000` in the background.
 3. Playwright MCP: `browser_resize` to 390×844. Every URL gets `?api=mock` (or `&api=mock`).

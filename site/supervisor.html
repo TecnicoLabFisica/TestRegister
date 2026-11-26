@@ -3,45 +3,72 @@
 <head>
 <meta charset="utf-8">
 <link rel="icon" href="data:,">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <title>Supervisor</title>
 <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
-<div id="err" class="err-screen hidden"><h1></h1><p></p></div>
+<body class="has-tabbar">
+<div id="err" class="empty hidden"><div class="empty-ic" data-icon="linkoff"></div><h1></h1><p></p></div>
 <div id="app" class="hidden">
-  <header class="band"><div class="inner">
-    <div class="room" id="room"></div>
-    <div class="who" id="who"></div>
-    <div class="counter"><b id="cnt">0</b><span id="cntOf"></span><span class="badge hidden" id="pend"></span></div>
+  <header class="top frost"><div class="inner">
+    <div class="top-txt">
+      <h1 class="ltitle" id="room"></h1>
+      <p class="sub" id="who"></p>
+      <span class="pill ok" id="sync"></span>
+    </div>
+    <div class="ringcol">
+      <div class="ringbox" id="ring"><span data-ring></span><b id="cnt">0</b></div>
+      <div class="ringcap" id="cntOf"></div>
+    </div>
   </div></header>
-  <main class="wrap stack">
-    <div id="offline" class="banner warn hidden"></div>
-    <div id="result" class="hidden" role="status" aria-live="polite"></div>
-    <button class="btn primary" id="bScan"></button>
-    <div id="scanPanel" class="hidden"><div id="reader"></div><p id="camErr" class="banner bad hidden"></p></div>
-    <button class="btn" id="bManual"></button>
-    <form id="manualPanel" class="panel hidden" autocomplete="off">
-      <label for="idIn" id="idLabel"></label>
-      <input id="idIn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="9" autocomplete="off">
-      <p id="idErr" class="status-line hidden" style="color:var(--bad-bg);font-weight:700"></p>
-      <button class="btn primary" type="submit" id="bGo" style="margin-top:12px"></button>
-    </form>
-    <button class="btn" id="bQr"></button>
-    <section class="panel"><h2 id="recentH"></h2><ul class="list" id="recent"></ul></section>
+  <main class="wrap">
+    <section id="tab-scan" class="tab">
+      <div class="cam" id="cam">
+        <div id="reader"></div>
+        <div class="cam-idle"><span data-icon="camera"></span><p id="camHint"></p></div>
+        <div class="vf"><i></i><i></i><i></i><i></i></div>
+        <div class="flash" id="flash"><span data-icon="check"></span></div>
+        <button class="btn cam-btn" id="bScan"></button>
+      </div>
+      <p id="camErr" class="note bad hidden" style="margin-top:12px"></p>
+      <form id="manualPanel" class="group manual" autocomplete="off">
+        <label for="idIn" id="idLabel"></label>
+        <div class="fr">
+          <input class="field idf" id="idIn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="9" autocomplete="off" placeholder="000000000">
+          <button class="btn primary" type="submit" id="bGo"></button>
+        </div>
+        <p id="idErr" class="err hidden"></p>
+      </form>
+      <h2 class="gh" id="recentH"></h2>
+      <ul class="group" id="recent"></ul>
+    </section>
+    <section id="tab-list" class="tab hidden">
+      <div class="search" style="margin-top:8px"><span data-icon="search"></span><input class="field" id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      <div class="seg" id="flt" style="margin-top:12px">
+        <button data-v="all"></button><button data-v="missing"></button><button data-v="done"></button>
+      </div>
+      <ul class="group" id="roster" style="margin-top:14px"></ul>
+      <h2 class="gh hidden" id="othersH"></h2>
+      <ul class="group hidden" id="others"></ul>
+    </section>
+    <section id="tab-qr" class="tab hidden">
+      <p class="qrhelp" id="qrHelp"></p>
+      <div class="qrcard"><div id="qrBox" data-checkin-url=""></div></div>
+      <div class="group qroff hidden" id="qrOff"><span data-icon="linkoff"></span><p id="qrMsg"></p></div>
+      <div class="qrcount"><div class="ringbox" id="qrRing"><span data-ring></span></div><span id="qrCount"></span></div>
+    </section>
   </main>
-</div>
-<dialog id="dlg"><p id="dlgMsg"></p><button class="btn primary" id="dlgYes"></button><button class="btn" id="dlgNo"></button></dialog>
-<div id="qrView" class="overlay hidden">
-  <p id="qrHelp"></p>
-  <div class="qr" id="qrBox"></div>
-  <div class="count" id="qrCount"></div>
-  <p id="qrMsg" class="hidden"></p>
-  <button class="btn" id="qrClose" style="max-width:320px"></button>
+  <nav class="tabbar frost"><div class="seg" id="tabs">
+    <button data-v="scan"><span data-icon="camera"></span><span id="tScan"></span></button>
+    <button data-v="list"><span data-icon="list"></span><span id="tList"></span></button>
+    <button data-v="qr"><span data-icon="qr"></span><span id="tQr"></span></button>
+  </div></nav>
 </div>
 <script src="config.js"></script>
 <script src="vendor/html5-qrcode-2.3.8.min.js"></script>
 <script src="vendor/qrcode-generator-1.4.4.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/core.js"></script>
 <script src="js/i18n-es.js"></script>
 <script src="js/api.js"></script>
