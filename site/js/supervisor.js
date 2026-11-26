@@ -8,7 +8,7 @@
     $('app').classList.add('hidden'); $('err').classList.remove('hidden');
     $('err').querySelector('h1').textContent = title; $('err').querySelector('p').textContent = text;
   }
-  function errText(res) { return res.message || ES.errors[res.error] || ES.errors.server_error; }
+  function errText(res) { return ES.errors[res.error] || res.message || ES.errors.server_error; }
   function hhmm(iso) { var d = new Date(iso); return isNaN(d) ? '' : d.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' }); }
 
   // ---- state ----
@@ -16,7 +16,7 @@
     var me = session.supervisor.name, out = [];
     outbox.items().forEach(function (it) {
       var d = decideRegistration(it.id, session.supervisor.classroom, session.directory, {});
-      out.push({ id: it.id, name: d.name, status: d.status, registered_at: it.client_ts, registered_by: me, pending: true });
+      out.push({ id: it.id, status: d.status, registered_at: it.client_ts, registered_by: me, pending: true });
     });
     return out;
   }
@@ -138,20 +138,22 @@
   function loadCode() {
     clearTimeout(qrTimer);
     api('selfCode', { token: token }).then(function (res) {
+      if ($('qrView').classList.contains('hidden')) return; // closed while in flight
       if (!res.ok) throw new Error(errText(res));
       var url = withMock(siteBase() + 'checkin.html?c=' + encodeURIComponent(res.classroom) + '&k=' + res.code);
       drawQr(url); $('qrMsg').classList.add('hidden'); $('qrBox').classList.remove('hidden');
-      var left = Math.max(3, res.expires_in - 5);
+      var left = res.expires_in + 1; // just past the minute bucket, so the next fetch gets the new code
       clearInterval(qrTick);
       qrTick = setInterval(function () { left--; $('qrCount').textContent = S.qrRenew(Math.max(left, 0)); }, 1000);
       $('qrCount').textContent = S.qrRenew(left);
-      qrTimer = setTimeout(loadCode, left * 1000);
+      clearTimeout(qrTimer); qrTimer = setTimeout(loadCode, left * 1000);
     }).catch(function (e) {
+      if ($('qrView').classList.contains('hidden')) return;
       $('qrBox').classList.add('hidden'); $('qrMsg').classList.remove('hidden');
       $('qrMsg').textContent = e && e.message && e.message !== 'offline' ? e.message : S.qrOffline;
       $('qrCount').textContent = '';
       clearInterval(qrTick);
-      qrTimer = setTimeout(loadCode, 5000);
+      clearTimeout(qrTimer); qrTimer = setTimeout(loadCode, 5000);
     });
   }
   function closeQr() { clearTimeout(qrTimer); clearInterval(qrTick); $('qrView').classList.add('hidden'); }
@@ -199,7 +201,10 @@
       (session.coSupervisors.length ? ' · ' + S.with + ' ' + session.coSupervisors.join(', ') : '');
     document.title = session.supervisor.classroom;
     outbox = createOutbox(token, { onChange: function () { if (session && outbox) render(); }, onResults: onResults,
-      onError: function (res) { if (res.error === 'bad_token') fail(S.title, errText(res)); } });
+      onError: function (res) {
+        if (res.error === 'bad_token') fail(S.title, errText(res));
+        else if (res.error === 'bad_request') { show('bad', errText(res)); refreshStatus(); } // outbox dropped the batch
+      } });
     wire(); render(); refreshStatus();
     setInterval(refreshStatus, 15000);
   }

@@ -11,7 +11,7 @@
     r.innerHTML = '<span></span><small></small>';
     r.children[0].textContent = title; r.children[1].textContent = sub || '';
   }
-  function errText(res) { return res.message || ES.errors[res.error] || ES.errors.server_error; }
+  function errText(res) { return ES.errors[res.error] || res.message || ES.errors.server_error; }
   function busy(on) { $('go').disabled = on; }
 
   function attempt(id, n) {
@@ -43,6 +43,6 @@
     });
   };
   $('again').onclick = function () {
-    $('form').classList.remove('hidden'); $('again').classList.add('hidden'); $('result').classList.add('hidden'); $('idIn').focus();
+    $('form').classList.remove('hidden'); $('again').classList.add('hidden'); $('result').classList.add('hidden'); $('idIn').value = ''; $('idIn').focus();
   };
 })();

@@ -1,4 +1,4 @@
-// Html5Qrcode wrapper: back camera, continuous scan, same id ignored for 3 s.
+// Html5Qrcode wrapper: back camera, continuous scan, same id ignored until out of view for 3 s.
 function createScanner(elId, onId) {
   var qr = null, last = {}, running = false;
   var api_ = {
@@ -9,8 +9,9 @@ function createScanner(elId, onId) {
       running = true;
       return qr.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 240, height: 240 } }, function (text) {
         var id = extractId(text), now = Date.now();
-        if (!id || api_.paused || (last[id] && now - last[id] < 3000)) return;
-        last[id] = now;
+        if (!id) return;
+        var seen = last[id]; last[id] = now; // sliding: a card held in view (e.g. during a modal) never re-fires
+        if (api_.paused || (seen && now - seen < 3000)) return;
         onId(id);
       }, function () {}).catch(function (e) { running = false; throw e; });
     },

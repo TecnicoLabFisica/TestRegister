@@ -9,7 +9,7 @@
   function key() { return $('key').value.trim(); }
   function text(el, s) { el.textContent = s; return el; }
   function td(tr, s, cls) { var c = document.createElement('td'); c.textContent = s; if (cls) c.className = cls; tr.appendChild(c); return c; }
-  function fail(el, res) { text(el, 'Error: ' + (res.message || res.error)); }
+  function fail(el, res) { text(el, 'Error: ' + res.error); } // backend messages are Spanish; the admin page is English
   function netFail(el) { text(el, 'Network error: could not reach the backend.'); }
 
   // ---- CSV validation ----
@@ -84,7 +84,7 @@
     if (!confirm('Email every supervisor their link?')) return;
     api('emailLinks', { adminKey: key(), baseUrl: siteBase() }).then(function (res) {
       if (!res.ok) return fail($('linkSt'), res);
-      text($('linkSt'), 'Emails sent: ' + res.sent);
+      text($('linkSt'), 'Emails sent: ' + res.sent + (res.failed && res.failed.length ? '. Failed: ' + res.failed.join(', ') : ''));
     }, function () { netFail($('linkSt')); });
   };
   $('bPrint').onclick = function () {

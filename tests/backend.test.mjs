@@ -11,19 +11,20 @@ const supervisors = core.parseCsv(read('./fixtures/supervisors.csv'));
 
 // ---- minimal in-memory Apps Script fakes ----
 function fakeSheet() {
-  let data = [];
+  let data = [], maxRows = 1000;
   const grow = (r, c) => {
     while (data.length < r) data.push([]);
     for (let i = 0; i < r; i++) while (data[i].length < c) data[i].push('');
   };
   return {
-    getMaxRows: () => 1000,
+    getMaxRows: () => maxRows,
+    insertRowsAfter(_after, n) { maxRows += n; },
     getMaxColumns: () => 26,
     getLastRow: () => data.length,
     getRange(r, c, nr = 1, nc = 1) {
       return {
         setNumberFormat() { return this; },
-        setValues(v) { grow(r - 1 + nr, c - 1 + nc); v.forEach((row, i) => row.forEach((x, j) => { data[r - 1 + i][c - 1 + j] = x; })); },
+        setValues(v) { if (r - 1 + nr > maxRows) throw new Error('out of bounds'); grow(r - 1 + nr, c - 1 + nc); v.forEach((row, i) => row.forEach((x, j) => { data[r - 1 + i][c - 1 + j] = x; })); },
         getDisplayValues() { grow(r - 1 + nr, c - 1 + nc); return data.slice(r - 1, r - 1 + nr).map((row) => row.slice(c - 1, c - 1 + nc).map(String)); },
         clearContent() { data.splice(r - 1, nr); },
       };
@@ -204,4 +205,14 @@ test('setup replaces data and clears registrations', () => {
   assert.equal(r.supervisors.length, 1);
   assert.equal(e.call({ action: 'report', adminKey: e.adminKey }).rows.filter((x) => x.status !== 'absent').length, 0);
   assert.equal(e.call({ action: 'session', token: e.tokens[0] }).error, 'bad_token');
+});
+
+test('setup grows the sheet past its default 1000 rows', () => {
+  const env = makeEnv();
+  env.ctx.initSecrets();
+  const many = Array.from({ length: 1500 }, (_, i) => ({ ...students[i % students.length], id: String(100000000 + i) }));
+  const sups = supervisors.map(({ name, email, classroom, expected_students }) => ({ name, email, classroom, expected_students }));
+  const res = env.call({ action: 'setup', adminKey: env.props.ADMIN_KEY, students: many, supervisors: sups });
+  assert.equal(res.ok, true);
+  assert.equal(env.call({ action: 'dashboard', adminKey: env.props.ADMIN_KEY }).totals.students, 1500);
 });

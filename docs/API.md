@@ -35,7 +35,7 @@ Every call is `POST <APPS_SCRIPT_URL>` with `Content-Type: text/plain` and body 
 |---|---|---|
 | `setup` | `students[]`, `supervisors[]` (without tokens) | `{supervisors[]}` with tokens. **Replaces** all data and clears registrations. |
 | `listSupervisors` | | `{supervisors[]}` |
-| `emailLinks` | `baseUrl` (the Pages site root, ending in `/`) | `{sent}`. Emails each supervisor their link `baseUrl + "supervisor.html?t=" + token`, in Spanish. |
+| `emailLinks` | `baseUrl` (the Pages site root, ending in `/`) | `{sent, failed:[emails]}`. Emails each supervisor their link `baseUrl + "supervisor.html?t=" + token`, in Spanish. |
 | `dashboard` | | `{classrooms:[{classroom, expected, registered, wrong_room, unknown, supervisors:[names]}], totals:{students, registered, wrong_room, unknown, absent}}` |
 | `report` | | `{rows}`: the output of `buildReport(students, registrations)` from core.js |
 

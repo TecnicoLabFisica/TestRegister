@@ -94,7 +94,8 @@ function writeTab(name, rows) {
 
 function appendRows(sh, cols, rows) {
   if (!rows.length) return;
-  var start = Math.max(sh.getLastRow(), 1) + 1;
+  var start = Math.max(sh.getLastRow(), 1) + 1, need = start + rows.length - 1 - sh.getMaxRows();
+  if (need > 0) sh.insertRowsAfter(sh.getMaxRows(), need); // getRange past the sheet's last row throws
   sh.getRange(start, 1, rows.length, cols.length).setNumberFormat('@').setValues(rows.map(function (r) {
     return cols.map(function (c) { return r[c] === undefined || r[c] === null ? '' : String(r[c]); });
   }));
@@ -143,11 +144,11 @@ function emailLinks(req) {
   if (typeof req.baseUrl !== 'string' || !/^https?:\/\//.test(req.baseUrl)) {
     return fail('bad_request', 'Falta la dirección base del sitio.');
   }
-  var sent = 0;
+  var sent = 0, failed = [];
   readTab('supervisors').forEach(function (s) {
     if (!s.email) return;
     var link = req.baseUrl + 'supervisor.html?t=' + s.token;
-    MailApp.sendEmail({
+    try { MailApp.sendEmail({
       to: s.email,
       subject: 'Registro de asistencia – Aula ' + s.classroom,
       htmlBody:
@@ -162,10 +163,10 @@ function emailLinks(req) {
         '<li>Use «Mostrar QR» para que los estudiantes se registren ellos mismos.</li>' +
         '<li>Si un estudiante pertenece a otra aula, la aplicación se lo advertirá; aun así puede registrarlo.</li>' +
         '</ul><p>Gracias.</p>'
-    });
+    }); } catch (err) { console.error(err); failed.push(s.email); return; } // e.g. daily quota hit
     sent++;
   });
-  return { ok: true, sent: sent };
+  return { ok: true, sent: sent, failed: failed };
 }
 
 function dashboard() {
@@ -242,7 +243,8 @@ function registerLocked(req, s, dir) {
     results.push(res);
     if (d.duplicate) return;
     var row = {
-      id: id, classroom: s.classroom, registered_at: it.client_ts || now, received_at: now,
+      id: id, classroom: s.classroom, received_at: now,
+      registered_at: typeof it.client_ts === 'string' && !isNaN(Date.parse(it.client_ts)) ? it.client_ts : now,
       registered_by: s.name, method: it.method === 'manual' ? 'manual' : 'scan', status: d.status, client_id: cid
     };
     rows.push(row);
