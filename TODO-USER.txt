@@ -15,7 +15,8 @@ Tick a box by changing [ ] to [x]. Details for steps 2-3 are in docs/SETUP.md.
 [ ] micromamba create -f environment.yml
 [ ] micromamba run -n testregister node --test   (all tests pass)
 [ ] In Claude Code, install the plugins listed in .claude/settings.json with /plugin
-[ ] Create the folder data/ (git-ignored) and put the real CSVs there:
+[ ] Create the folder data/ (git-ignored) and put the real CSVs there
+    (the laptop's _example-data/ is NOT in git: copy it over yourself or use the real files):
       data/assigned_classrooms.csv
       data/assigned_supervisors.csv  (columns: name,email,classroom,expected_students;
                                       classroom must match assigned_classroom exactly)
@@ -42,6 +43,8 @@ Tick a box by changing [ ] to [x]. Details for steps 2-3 are in docs/SETUP.md.
 [ ] Click "Email links" → you receive the email in Spanish
 [ ] Open the link on your PHONE → allow the camera
 [ ] Scan your own student card QR → registered (or a wrong-room or unknown warning, as expected)
+[ ] Check that a card held inside the on-screen frame scans quickly (the frame overlay was never tested on a real camera)
+[ ] "Lista" tab: search a name, tap a missing student → "¿Registrar a …?" → registered
 [ ] Type an ID by hand → registered
 [ ] Type an ID from another classroom → Spanish warning → "Registrar aquí" → registered
 [ ] "Mostrar QR" → scan it with a second phone → enter an ID → "¡Registro exitoso!"

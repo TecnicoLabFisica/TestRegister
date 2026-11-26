@@ -8,6 +8,7 @@ Phone-based exam attendance for EPN (Física). Supervisors register students by 
   - `supervisor.html?t=<token>`: the phone scanner. Supports manual entry and shows the rotating self-check-in QR.
   - `checkin.html?c=<classroom>&k=<code>`: student self-check-in.
   - `js/core.js`: pure business logic (CSV parse/validate, registration decision, report). Written as plain functions with no `import`/`export`, so the same file runs in the browser, in Node tests and in Apps Script.
+  - `js/ui.js`: shared UI helpers (toast, bottom sheet, countUp, progress ring, segmented control, inline SVG icons). Styles live in `css/app.css` (iOS-style tokens, light and dark).
   - `js/api.js`: the backend client. Append `?api=mock` to any page to use the localStorage mock instead of Apps Script.
 - `apps-script/`: the backend, a Google Apps Script web app bound to a Google Sheet (tabs: students, supervisors, registrations). `Core.gs` is a **copy** of `site/js/core.js`. Run `npm run sync-core` after editing core.js; a test fails if the copies drift.
 - `tests/`: `node:test`. `tests/fixtures/make-fixtures.mjs` generates **synthetic** CSVs.
@@ -38,7 +39,7 @@ Phone-based exam attendance for EPN (Física). Supervisors register students by 
 - Sync the backend copy of core: `micromamba run -n testregister npm run sync-core`.
 - Synthetic fixtures: `micromamba run -n testregister npm run fixtures`.
 - Serve locally: `python3 -m http.server -d site 8000`, then open `http://localhost:8000/admin.html?api=mock`.
-- End-to-end check: the `/e2e-smoke` skill (Playwright MCP, phone viewport, mock backend).
+- End-to-end check: the `/e2e-smoke` skill. Its fast path is the scripted `tests/e2e/smoke.cjs` (mock backend, light and dark, must end with `errors: []`); update the script whenever the DOM changes.
 
 ## Workflow
 - **Model roles:** the main session (Opus/Fable) plans, orchestrates and reviews. Code is written by the `implementer` agent (`.claude/agents/implementer.md`, Sonnet). Review its diff before accepting it, and make small edits directly.
