@@ -55,3 +55,5 @@ Phone-based exam attendance for EPN (Física). Supervisors register students by 
 
 ## Status
 See `docs/STATUS.md` for what's built, what's pending, and decisions taken. Update it at the end of each work session.
+
+Steps only the user can do (GitHub settings, Google deploys, real-data tests) go in `TODO-USER.txt` as `[ ]` checkboxes. Add new ones there when work creates them.
