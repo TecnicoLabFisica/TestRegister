@@ -16,10 +16,11 @@ Update at the end of every work session (either machine).
 
 - Phase 6: `/code-review` (medium) fixed 10 findings, including sheets with more than 1000 rows (the real roster has 1284).
 - Repo pushed. Pages is live at https://tecnicolabfisica.github.io/TestRegister/ and CI is green.
+- Apple-style redesign plus features: supervisor roster search and tap-to-register, bottom sheets, admin KPI tiles, room drill-down and student search. Scripted E2E in `tests/e2e/smoke.cjs`.
 
 ## Next
 - Work PC: deploy Apps Script per `docs/SETUP.md`, set `site/config.js`, then do a real-backend smoke test (own email as supervisor, scan own card).
-- Untested so far: real camera scanning, the print layout, real Apps Script behaviour (setNumberFormat, display values, quotas, lock contention under a burst of self check-ins).
+- Untested so far: real camera scanning (check that the viewfinder overlay lines up with html5-qrcode's scan box), the print layout, real Apps Script behaviour (setNumberFormat, display values, quotas, lock contention under a burst of self check-ins).
 - Optional: ponytail-review (over-engineering pass).
 
 ## Gotchas
