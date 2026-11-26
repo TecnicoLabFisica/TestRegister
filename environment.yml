@@ -1,0 +1,6 @@
+# micromamba create -f environment.yml && micromamba activate testregister
+name: testregister
+channels:
+  - conda-forge
+dependencies:
+  - nodejs=22

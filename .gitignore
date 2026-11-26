@@ -1,0 +1,10 @@
+# Student/supervisor data is PII: never commit it (public repo).
+data/
+_example-data/
+*.csv
+!tests/fixtures/*.csv
+
+node_modules/
+.remember/
+.claude/settings.local.json
+.DS_Store

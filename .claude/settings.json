@@ -1,0 +1,24 @@
+{
+  "enabledPlugins": {
+    "frontend-design@anthropic-plugin-directory": true,
+    "superpowers@anthropic-plugin-directory": true,
+    "code-review@anthropic-plugin-directory": true,
+    "skill-creator@anthropic-plugin-directory": true,
+    "playwright@anthropic-plugin-directory": true,
+    "claude-md-management@anthropic-plugin-directory": true,
+    "claude-code-setup@anthropic-plugin-directory": true,
+    "playground@anthropic-plugin-directory": true,
+    "remember@claude-plugins-official": true,
+    "ponytail@ponytail": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(micromamba run -n testregister node --test:*)",
+      "Bash(micromamba run -n testregister npm run:*)",
+      "Bash(python3 -m http.server:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)"
+    ]
+  }
+}
