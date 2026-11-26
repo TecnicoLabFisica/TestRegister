@@ -176,10 +176,9 @@ function dashboard() {
     if (!rooms[c]) { rooms[c] = { classroom: c, expected: 0, registered: 0, wrong_room: 0, unknown: 0, supervisors: [] }; order.push(c); }
     return rooms[c];
   }
-  students.forEach(function (s) { room(s.assigned_classroom); });
+  students.forEach(function (s) { room(s.assigned_classroom).expected++; }); // roster count, not supervisors' sum
   sups.forEach(function (p) {
     var r = room(p.classroom);
-    r.expected += Number(p.expected_students) || 0;
     r.supervisors.push(p.name);
   });
   var t = { students: students.length, registered: 0, wrong_room: 0, unknown: 0, absent: 0 };

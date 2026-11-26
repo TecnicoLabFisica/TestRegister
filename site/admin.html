@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TestRegister admin</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="admin">
+<main class="wrap">
+  <h1>TestRegister admin</h1>
+
+  <section>
+    <h2>Admin key</h2>
+    <div class="row"><input type="password" id="key" placeholder="Admin key" autocomplete="off"><span class="status-line" id="mode"></span></div>
+  </section>
+
+  <section>
+    <h2>1. Upload data</h2>
+    <div class="stack">
+      <div><label for="fStudents">Students CSV (assigned_classrooms.csv)</label><input type="file" id="fStudents" accept=".csv,text/csv"></div>
+      <div><label for="fSups">Supervisors CSV (assigned_supervisors.csv)</label><input type="file" id="fSups" accept=".csv,text/csv"></div>
+    </div>
+    <div id="msgs"></div>
+    <div class="tablewrap"><table id="roomsT" class="hidden"><thead><tr><th>Classroom</th><th class="num">Students</th><th class="num">Expected</th><th>Supervisors</th></tr></thead><tbody></tbody></table></div>
+    <p><button class="btn primary" id="bSetup" disabled>Run setup</button> <span class="status-line" id="setupSt"></span></p>
+  </section>
+
+  <section>
+    <h2>2. Supervisor links</h2>
+    <div class="row"><button class="btn" id="bLoad">Load supervisors</button><button class="btn" id="bPrint" disabled>Print link sheet</button><button class="btn" id="bEmail" disabled>Email links to supervisors</button><span class="status-line" id="linkSt"></span></div>
+    <div class="tablewrap"><table id="supT" class="hidden"><thead><tr><th>Name</th><th>Classroom</th><th>Link</th><th>QR</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section>
+    <h2>3. Dashboard</h2>
+    <div class="row"><button class="btn" id="bDash">Refresh</button><label style="margin:0;font-weight:400"><input type="checkbox" id="auto" checked> Auto-refresh (20 s)</label><button class="btn" id="bCsv">Download CSV</button><span class="status-line" id="dashSt"></span></div>
+    <div class="tablewrap"><table id="dashT" class="hidden"><thead><tr><th>Classroom</th><th>Supervisors</th><th>Registered / expected</th><th class="num">Wrong room</th><th class="num">Unknown</th></tr></thead><tbody></tbody><tfoot></tfoot></table></div>
+    <p id="totals"></p>
+  </section>
+</main>
+<div id="print"></div>
+<script src="config.js"></script>
+<script src="vendor/qrcode-generator-1.4.4.js"></script>
+<script src="js/core.js"></script>
+<script src="js/i18n-es.js"></script>
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

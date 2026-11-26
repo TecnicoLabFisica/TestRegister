@@ -1,0 +1,82 @@
+// Spanish strings for supervisor, student and print-sheet pages.
+var ES = {
+  errors: {
+    bad_token: 'Este enlace no es válido o ya no está activo. Pide a la coordinación que te reenvíe tu enlace.',
+    bad_code: 'El código QR expiró. Vuelve a escanear el QR del supervisor.',
+    bad_request: 'La solicitud no es válida. Revisa el ID e inténtalo de nuevo.',
+    not_setup: 'El sistema todavía no está configurado. Avisa a la coordinación.',
+    busy: 'El servidor está ocupado. Reintentando…',
+    server_error: 'Error del servidor. Inténtalo de nuevo en unos segundos.',
+    bad_admin_key: 'Clave de administrador incorrecta.',
+    network: 'Sin conexión con el servidor.',
+    not_configured: 'La dirección del servidor no está configurada.'
+  },
+  sup: {
+    title: 'Supervisor',
+    loading: 'Cargando…',
+    noToken: 'Falta el enlace del supervisor. Abre el enlace que recibiste por correo.',
+    noCache: 'Sin conexión y sin datos guardados. Conéctate a internet para abrir esta página por primera vez.',
+    supervisor: 'Supervisor',
+    with: 'Con',
+    registered: 'registrados',
+    of: 'de',
+    pending: 'por sincronizar',
+    offline: 'Sin conexión: los registros se guardan y se enviarán solos.',
+    scan: 'Escanear carnet',
+    scanStop: 'Cerrar cámara',
+    manual: 'Ingresar ID',
+    showQr: 'Mostrar QR',
+    idLabel: 'ID de estudiante (9 dígitos)',
+    register: 'Registrar',
+    badId: 'El ID debe tener exactamente 9 dígitos.',
+    cameraError: 'No se pudo abrir la cámara. Revisa los permisos o usa «Ingresar ID».',
+    recent: 'Recientes',
+    noRecent: 'Aún no hay registros.',
+    dupe: 'Ya registrado',
+    dupeAt: function (time, by) { return 'Ya registrado (' + time + ', por ' + by + ')'; },
+    dupeServer: function (name, by) { return name + ': ya registrado por ' + by; },
+    okTitle: 'Registrado',
+    wrongRoomMsg: function (room) { return 'Este estudiante no pertenece a esta aula. Aula asignada: ' + room + '. Indíquele al estudiante. ¿Registrar aquí de todos modos?'; },
+    unknownMsg: function (id) { return 'El ID ' + id + ' no está en la lista del examen. ¿Registrar de todos modos?'; },
+    registerHere: 'Registrar aquí',
+    registerAnyway: 'Registrar',
+    cancel: 'Cancelar',
+    chip: { ok: 'OK', wrong_room: 'Otra aula', unknown: 'No listado', pending: 'Pendiente' },
+    qrTitle: 'Autoregistro',
+    qrHelp: 'Escanea este código con tu celular para registrarte',
+    qrOffline: 'Sin conexión: el QR de autoregistro necesita internet',
+    qrRenew: function (s) { return 'Se renueva en ' + s + ' s'; },
+    close: 'Cerrar'
+  },
+  checkin: {
+    title: 'Registro de asistencia',
+    badLink: 'El enlace está incompleto. Vuelve a escanear el QR del supervisor.',
+    idLabel: 'ID de estudiante (9 dígitos)',
+    submit: 'Registrarme',
+    badId: 'El ID debe tener exactamente 9 dígitos.',
+    sending: 'Registrando…',
+    retrying: function (n) { return 'Reintentando (' + n + ' de 5)…'; },
+    failed: 'No se pudo completar el registro. Revisa tu conexión e inténtalo otra vez.',
+    ok: '¡Registro exitoso!',
+    room: 'Aula',
+    wrongRoom: function (room) { return 'Quedaste registrado en esta aula, pero tu aula asignada es ' + room + '. Informa al supervisor.'; },
+    dupe: 'Ya estabas registrado.',
+    again: 'Registrar otro ID'
+  },
+  print: {
+    title: 'Enlaces de supervisores',
+    room: 'Aula',
+    steps: [
+      'Abre tu enlace en el celular (o escanea este QR).',
+      'Escanea el carnet de cada estudiante al ingresar al aula.',
+      'Si falla el escáner, usa «Ingresar ID» y escribe los 9 dígitos.'
+    ],
+    private: 'Personal e intransferible'
+  },
+  index: {
+    title: 'Registro de asistencia a exámenes',
+    lead: 'Los supervisores registran a los estudiantes escaneando el QR del carnet o escribiendo su ID de 9 dígitos. Los estudiantes también pueden registrarse con el QR que muestra el supervisor.',
+    supervisor: 'Si eres supervisor, abre el enlace que recibiste por correo.',
+    admin: 'Administración'
+  }
+};

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supervisor</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="err" class="err-screen hidden"><h1></h1><p></p></div>
+<div id="app" class="hidden">
+  <header class="band"><div class="inner">
+    <div class="room" id="room"></div>
+    <div class="who" id="who"></div>
+    <div class="counter"><b id="cnt">0</b><span id="cntOf"></span><span class="badge hidden" id="pend"></span></div>
+  </div></header>
+  <main class="wrap stack">
+    <div id="offline" class="banner warn hidden"></div>
+    <div id="result" class="hidden" role="status" aria-live="polite"></div>
+    <button class="btn primary" id="bScan"></button>
+    <div id="scanPanel" class="hidden"><div id="reader"></div><p id="camErr" class="banner bad hidden"></p></div>
+    <button class="btn" id="bManual"></button>
+    <form id="manualPanel" class="panel hidden" autocomplete="off">
+      <label for="idIn" id="idLabel"></label>
+      <input id="idIn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="9" autocomplete="off">
+      <p id="idErr" class="status-line hidden" style="color:var(--bad-bg);font-weight:700"></p>
+      <button class="btn primary" type="submit" id="bGo" style="margin-top:12px"></button>
+    </form>
+    <button class="btn" id="bQr"></button>
+    <section class="panel"><h2 id="recentH"></h2><ul class="list" id="recent"></ul></section>
+  </main>
+</div>
+<dialog id="dlg"><p id="dlgMsg"></p><button class="btn primary" id="dlgYes"></button><button class="btn" id="dlgNo"></button></dialog>
+<div id="qrView" class="overlay hidden">
+  <p id="qrHelp"></p>
+  <div class="qr" id="qrBox"></div>
+  <div class="count" id="qrCount"></div>
+  <p id="qrMsg" class="hidden"></p>
+  <button class="btn" id="qrClose" style="max-width:320px"></button>
+</div>
+<script src="config.js"></script>
+<script src="vendor/html5-qrcode-2.3.8.min.js"></script>
+<script src="vendor/qrcode-generator-1.4.4.js"></script>
+<script src="js/core.js"></script>
+<script src="js/i18n-es.js"></script>
+<script src="js/api.js"></script>
+<script src="js/outbox.js"></script>
+<script src="js/scanner.js"></script>
+<script src="js/supervisor.js"></script>
+</body>
+</html>

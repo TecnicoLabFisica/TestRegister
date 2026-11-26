@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro de asistencia</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="band"><div class="inner"><div class="room" id="room"></div></div></header>
+<main class="wrap stack">
+  <form id="form" class="stack" autocomplete="off">
+    <label for="idIn" id="lbl"></label>
+    <input id="idIn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="9" autocomplete="off">
+    <button class="btn primary" type="submit" id="go"></button>
+  </form>
+  <div id="result" class="hidden" role="status" aria-live="polite"></div>
+  <button class="btn hidden" id="again"></button>
+</main>
+<script src="config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/i18n-es.js"></script>
+<script src="js/api.js"></script>
+<script src="js/checkin.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro de asistencia a exámenes</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="band"><div class="inner"><div class="room" id="t"></div></div></header>
+<main class="wrap stack">
+  <p id="lead"></p>
+  <p class="panel" id="sup" style="font-weight:700"></p>
+  <p><a id="adm" href="admin.html" style="font-size:14px;color:var(--muted)"></a></p>
+</main>
+<script src="js/i18n-es.js"></script>
+<script>
+  document.getElementById('t').textContent = ES.index.title;
+  document.getElementById('lead').textContent = ES.index.lead;
+  document.getElementById('sup').textContent = ES.index.supervisor;
+  document.getElementById('adm').textContent = ES.index.admin;
+</script>
+</body>
+</html>
