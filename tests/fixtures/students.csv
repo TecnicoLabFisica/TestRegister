@@ -1,0 +1,121 @@
+﻿id,name,email,assignment,class,faculty,career,assigned_classroom
+202600001,Ana Testsson 1,est1@example.edu,Fisica General,FIS1,Ciencias,Fisica,E26/P5/Auditorio 2
+202600008,Sofia Demo 2,est2@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600015,Sofia Muestra 3,est3@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600022,Mateo Testsson 4,est4@example.edu,Fisica General,FIS1,Ciencias,Fisica,E26/P5/Auditorio 2
+202600029,Diego Prueba 5,est5@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600036,Lucia Ficticio 6,est6@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600043,Jose Prueba 7,est7@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600050,Lucia Prueba 8,est8@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600057,Lucia Prueba 9,est9@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600064,Diego Ejemplo 10,est10@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600071,Lucia Prueba 11,est11@example.edu,Fisica General,FIS2,Ciencias,Fisica,E26/P5/Auditorio 2
+202600078,Mateo Testsson 12,est12@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600085,Ana Sintetico 13,est13@example.edu,Fisica General,FIS1,Ciencias,Fisica,E26/P5/Auditorio 2
+202600092,Carla Prueba 14,est14@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600099,Jose Falso 15,est15@example.edu,Fisica General,FIS3,Ciencias,Matematica,E26/P5/Auditorio 2
+202600106,Jose Falso 16,est16@example.edu,Fisica General,FIS1,Ciencias,Matematica,E26/P5/Auditorio 2
+202600113,Diego Ficticio 17,est17@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600120,Luis Testsson 18,est18@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600127,Luis Sintetico 19,est19@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600134,Maria Ficticio 20,est20@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600141,Mateo Muestra 21,est21@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600148,Luis Testsson 22,est22@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600155,Pedro Falso 23,est23@example.edu,Fisica General,FIS2,Ciencias,Fisica,E26/P5/Auditorio 2
+202600162,Luis Muestra 24,est24@example.edu,Fisica General,FIS3,Ciencias,Matematica,E26/P5/Auditorio 2
+202600169,Luis Ejemplo 25,est25@example.edu,Fisica General,FIS1,Ciencias,Matematica,E26/P5/Auditorio 2
+202600176,Lucia Sintetico 26,est26@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600183,Mateo Falso 27,est27@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600190,Pedro Prueba 28,est28@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600197,Sofia Sintetico 29,est29@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600204,Ana Prueba 30,est30@example.edu,Fisica General,FIS3,Ciencias,Fisica,E26/P5/Auditorio 2
+202600211,Jose Ejemplo 31,est31@example.edu,Fisica General,FIS1,Ciencias,Matematica,E26/P5/Auditorio 2
+202600218,Maria Demo 32,est32@example.edu,Fisica General,FIS2,Ciencias,Matematica,E26/P5/Auditorio 2
+202600225,Maria Sintetico 33,est33@example.edu,Fisica General,FIS3,Ciencias,Matematica,E26/P5/Auditorio 2
+202600232,Pedro Sintetico 34,est34@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600239,Diego Demo 35,est35@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600246,Carla Ficticio 36,est36@example.edu,Fisica General,FIS3,Ciencias,Matematica,E26/P5/Auditorio 2
+202600253,Sofia Demo 37,est37@example.edu,Fisica General,FIS1,Ciencias,Fisica,E26/P5/Auditorio 2
+202600260,Sofia Falso 38,est38@example.edu,Fisica General,FIS2,Ciencias,Fisica,E26/P5/Auditorio 2
+202600267,Mateo Ficticio 39,est39@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E26/P5/Auditorio 2
+202600274,Diego Prueba 40,est40@example.edu,Fisica General,FIS1,Ciencias,Matematica,E26/P5/Auditorio 2
+202600281,Diego Muestra 41,est41@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E003
+202600288,Mateo Sintetico 42,est42@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E003
+202600295,Pedro Ficticio 43,est43@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E003
+202600302,Carla Demo 44,est44@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E003
+202600309,Ana Prueba 45,est45@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E003
+202600316,Mateo Demo 46,est46@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E003
+202600323,Carla Testsson 47,est47@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E003
+202600330,Carla Muestra 48,est48@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E003
+202600337,Sofia Ficticio 49,est49@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E003
+202600344,Sofia Prueba 50,est50@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E003
+202600351,Diego Muestra 51,est51@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E003
+202600358,Carla Demo 52,est52@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E003
+202600365,Sofia Ejemplo 53,est53@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E003
+202600372,Luis Testsson 54,est54@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E003
+202600379,Ana Demo 55,est55@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E003
+202600386,Luis Muestra 56,est56@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E003
+202600393,Sofia Ejemplo 57,est57@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E003
+202600400,Mateo Falso 58,est58@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E003
+202600407,Lucia Sintetico 59,est59@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E003
+202600414,Lucia Falso 60,est60@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E003
+202600421,Sofia Muestra 61,est61@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E004
+202600428,Luis Falso 62,est62@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E004
+202600435,Maria Muestra 63,est63@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E004
+202600442,Diego Prueba 64,est64@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E004
+202600449,Maria Ejemplo 65,est65@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E004
+202600456,Ana Muestra 66,est66@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E004
+202600463,Diego Testsson 67,est67@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E004
+202600470,Carla Sintetico 68,est68@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E004
+202600477,Mateo Demo 69,est69@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E004
+202600484,Maria Demo 70,est70@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E004
+202600491,Luis Testsson 71,est71@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E004
+202600498,Lucia Testsson 72,est72@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E004
+202600505,Pedro Ejemplo 73,est73@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E004
+202600512,Lucia Demo 74,est74@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E004
+202600519,Jose Ficticio 75,est75@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E004
+202600526,Pedro Prueba 76,est76@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E004
+202600533,Luis Ejemplo 77,est77@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E004
+202600540,Maria Ficticio 78,est78@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E004
+202600547,Carla Prueba 79,est79@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E004
+202600554,Sofia Prueba 80,est80@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E004
+202600561,Ana Ejemplo 81,est81@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E005
+202600568,Mateo Muestra 82,est82@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E005
+202600575,Sofia Testsson 83,est83@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E005
+202600582,Sofia Demo 84,est84@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E005
+202600589,Diego Testsson 85,est85@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E005
+202600596,Jose Testsson 86,est86@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E005
+202600603,Mateo Muestra 87,est87@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E005
+202600610,Pedro Sintetico 88,est88@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E005
+202600617,Lucia Testsson 89,est89@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E005
+202600624,Luis Muestra 90,est90@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E005
+202600631,Maria Muestra 91,est91@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E005
+202600638,Maria Demo 92,est92@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E005
+202600645,Lucia Muestra 93,est93@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E005
+202600652,Carla Demo 94,est94@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E005
+202600659,Jose Falso 95,est95@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E005
+202600666,Mateo Prueba 96,est96@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E005
+202600673,Jose Falso 97,est97@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E005
+202600680,Sofia Testsson 98,est98@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E005
+202600687,Lucia Prueba 99,est99@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E005
+202600694,Pedro Ejemplo 100,est100@example.edu,Fisica General,FIS1,Ciencias,Ingenieria,E14/P6/E005
+202600701,Sofia Sintetico 101,est101@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E006
+202600708,Jose Testsson 102,est102@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E006
+202600715,Jose Muestra 103,est103@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E006
+202600722,Mateo Testsson 104,est104@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E006
+202600729,Mateo Falso 105,est105@example.edu,Fisica General,FIS3,Ciencias,Matematica,E14/P6/E006
+202600736,Luis Ficticio 106,est106@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E006
+202600743,Lucia Testsson 107,est107@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E006
+202600750,Lucia Testsson 108,est108@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E006
+202600757,Lucia Muestra 109,est109@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E006
+202600764,Jose Testsson 110,est110@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E006
+202600771,Jose Testsson 111,est111@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E006
+202600778,Luis Prueba 112,est112@example.edu,Fisica General,FIS1,Ciencias,Fisica,E14/P6/E006
+202600785,Pedro Demo 113,est113@example.edu,Fisica General,FIS2,Ciencias,Fisica,E14/P6/E006
+202600792,Luis Testsson 114,est114@example.edu,Fisica General,FIS3,Ciencias,Ingenieria,E14/P6/E006
+202600799,Luis Ficticio 115,est115@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E006
+202600806,Sofia Ficticio 116,est116@example.edu,Fisica General,FIS2,Ciencias,Ingenieria,E14/P6/E006
+202600813,Mateo Ficticio 117,est117@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E006
+202600820,Ana Ejemplo 118,est118@example.edu,Fisica General,FIS1,Ciencias,Matematica,E14/P6/E006
+202600827,Jose Testsson 119,est119@example.edu,Fisica General,FIS2,Ciencias,Matematica,E14/P6/E006
+202600834,Diego Falso 120,est120@example.edu,Fisica General,FIS3,Ciencias,Fisica,E14/P6/E006

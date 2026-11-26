@@ -17,6 +17,6 @@ Key invariants (from CLAUDE.md):
 
 Working rules:
 - Write tests first for pure logic (`tests/*.test.mjs`, `node:test`, `node:assert/strict`).
-- Verify before reporting: `micromamba run -n testregister node --test tests/` must pass. Paste the summary lines.
+- Verify before reporting: `micromamba run -n testregister node --test` must pass. Paste the summary lines.
 - Don't commit. Leave changes in the working tree for review.
 - Report: the files changed, what you did, the test output, and anything you were unsure of or skipped.

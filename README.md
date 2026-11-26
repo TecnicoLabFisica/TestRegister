@@ -4,6 +4,6 @@ Phone-based exam attendance registration (EPN · Física). Supervisors scan stud
 
 - Static frontend on GitHub Pages (`site/`), backend in Google Apps Script + Google Sheet (`apps-script/`).
 - One-time setup: [docs/SETUP.md](docs/SETUP.md) · API contract: [docs/API.md](docs/API.md) · Status: [docs/STATUS.md](docs/STATUS.md)
-- Dev: `micromamba create -f environment.yml`, then `micromamba run -n testregister node --test tests/`.
+- Dev: `micromamba create -f environment.yml`, then `micromamba run -n testregister node --test`.
 
 **Student data is never committed.** Put real CSVs in `data/` (git-ignored).

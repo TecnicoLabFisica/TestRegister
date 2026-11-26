@@ -34,7 +34,7 @@ Phone-based exam attendance for EPN (Física). Supervisors register students by 
 
 ## Commands
 - One-time env setup: `micromamba create -f environment.yml` (Node.js only; no Python in this project).
-- Tests: `micromamba run -n testregister node --test tests/`.
+- Tests: `micromamba run -n testregister node --test`.
 - Sync the backend copy of core: `micromamba run -n testregister npm run sync-core`.
 - Synthetic fixtures: `micromamba run -n testregister npm run fixtures`.
 - Serve locally: `python3 -m http.server -d site 8000`, then open `http://localhost:8000/admin.html?api=mock`.

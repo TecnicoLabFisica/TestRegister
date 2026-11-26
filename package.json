@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/",
+    "test": "node --test",
     "sync-core": "cp site/js/core.js apps-script/Core.gs",
     "fixtures": "node tests/fixtures/make-fixtures.mjs"
   }
