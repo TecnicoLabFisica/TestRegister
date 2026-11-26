@@ -14,11 +14,13 @@ Update at the end of every work session (either machine).
 - Phase 5: `.github/workflows/pages.yml` (tests, then deploy `site/`).
 - Dashboard and supervisor counter use the room's roster count as the denominator (not the supervisors' summed expected_students).
 
+- Phase 6: `/code-review` (medium) fixed 10 findings, including sheets with more than 1000 rows (the real roster has 1284).
+- Repo pushed. Pages is live at https://tecnicolabfisica.github.io/TestRegister/ and CI is green.
+
 ## Next
-- User: create the public GitHub repo, push, enable Pages (Source: GitHub Actions).
 - Work PC: deploy Apps Script per `docs/SETUP.md`, set `site/config.js`, then do a real-backend smoke test (own email as supervisor, scan own card).
 - Untested so far: real camera scanning, the print layout, real Apps Script behaviour (setNumberFormat, display values, quotas, lock contention under a burst of self check-ins).
-- Phase 6: `/code-review` + ponytail-review over the whole codebase.
+- Optional: ponytail-review (over-engineering pass).
 
 ## Gotchas
 - `node --test tests/` fails on Node 22; use plain `node --test`.

@@ -4,9 +4,9 @@ Tick a box by changing [ ] to [x]. Details for steps 2-3 are in docs/SETUP.md.
 
 1. GITHUB (any machine)
 [x] Create the public repo TecnicoLabFisica/TestRegister
-[ ] Repo Settings → Pages → "Build and deployment" → Source: GitHub Actions
-[ ] Actions tab: the "Test and deploy to Pages" run is green (re-run it if it ran before Pages was enabled)
-[ ] Open https://tecnicolabfisica.github.io/TestRegister/ and check that the landing page loads
+[x] Repo Settings → Pages → "Build and deployment" → Source: GitHub Actions
+[x] Actions tab: the "Test and deploy to Pages" run is green (re-run it if it ran before Pages was enabled)
+[x] Open https://tecnicolabfisica.github.io/TestRegister/ and check that the landing page loads
 
 2. WORK PC: SET UP THE PROJECT
 [ ] Check that ~/.ssh/config has a "github-work" host using the TecnicoLabFisica key (same as the laptop)
